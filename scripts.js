@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const circumference = 2 * Math.PI * radius;
 
     progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
-    progressRing.style.strokeDashoffset = circumference;
+    progressRing.style.strokeDashoffset = -circumference;
 
     function setProgress(percent) {
-        const offset = circumference - (percent / 100) * circumference;
-        progressRing.style.strokeDashoffset = offset;
+        const offset = ((100 - percent) / 100) * circumference;
+        progressRing.style.strokeDashoffset = -offset;
     }
 
     function formatTime(seconds) {
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     countdownText.textContent = formatTime(timeRemaining);
 
     function updateProgressBar() {
-        const percent = ((60 - timeRemaining) / 60) * 100;
+        const percent = (timeRemaining / 60) * 100;
         setProgress(percent);
         countdownText.textContent = formatTime(timeRemaining);
         timeRemaining--;
